@@ -505,6 +505,8 @@ header{
   @media screen and (max-width: 600px) {
     body {
       flex-direction: column;
+      transform: scale(0.58);
+      transform-origin: 0 0; 
     }
     .all {
       grid-template-columns: 1fr;
