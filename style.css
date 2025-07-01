@@ -84,16 +84,19 @@ header{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     background-color:var(--big-box-bgc);
-    padding: 3vh;
+    padding: min(3vh, 1rem);
     border-radius: 10%;
+    max-width: 90vw;
+    max-height: 90vw;
+    aspect-ratio: 1;
 }
 
 .data-Box{
     border: 0.1vh solid var(--data-box-border-color);
     background-color:var(--data-box-bgc);
-    font-size: 3rem;
-    width : 20vh;
-    height: 20vh;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    width: min(25vw, 100px);
+    height: min(25vw, 100px);
     text-align: center;
     align-items: center;
     display: flex;
@@ -298,10 +301,10 @@ header{
   }
   
   .disabled {
-    opacity: 0.8; /* or any other styles to indicate disabled state */
-    pointer-events: none; 
-
-}
+    opacity: 0.5; /* Make it more visible than 0.8 */
+    pointer-events: none;
+    filter: grayscale(50%);
+  }
 
 .theme-switch {
     --toggle-size: 30px;
