@@ -17,8 +17,9 @@ body{
   display:flex;
   background-color:var(--bg-color);
   color:var(--txt-color);
-  
-  
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .body-dark-theme{
@@ -38,7 +39,7 @@ body{
 
 .all{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
@@ -47,15 +48,17 @@ body{
 }
 header{
     grid-area: header;
-    height: 5vh;
+    height: auto;
+    min-height: 5vh;
     width: 100%;
-    
+    padding: 0.5rem;
 }
 .theme-switch{
     display: flex;
     justify-content: right;
     align-items: center;
-    
+    padding: 0.5rem;
+    cursor: pointer;
 }
  
 .details{
@@ -63,9 +66,10 @@ header{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    min-height: auto;
     left: 3vh;
     position: relative;
+    padding: 1rem;
 }
 
 .game-Boxes{
@@ -74,22 +78,26 @@ header{
     justify-content: center;
     align-items: center ;
     width: 100%;
-    height: 100vh;
+    min-height: auto;
+    padding: 1rem;
 }
 .big-Box{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     background-color:var(--big-box-bgc);
-    padding: 3vh;
+    padding: min(3vh, 1rem);
     border-radius: 10%;
+    max-width: 90vw;
+    max-height: 90vw;
+    aspect-ratio: 1;
 }
 
 .data-Box{
     border: 0.1vh solid var(--data-box-border-color);
     background-color:var(--data-box-bgc);
-    font-size: 3rem;
-    width : 20vh;
-    height: 20vh;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    width: min(25vw, 100px);
+    height: min(25vw, 100px);
     text-align: center;
     align-items: center;
     display: flex;
@@ -126,10 +134,11 @@ header{
   cursor: pointer;
 }
 .win-reset{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  gap: 1rem;
   width: 100%;
-  margin: 3vh;
+  margin: 3vh 0;
+  align-items: center;
 }
 
 #winner{
@@ -293,10 +302,10 @@ header{
   }
   
   .disabled {
-    opacity: 0.8; /* or any other styles to indicate disabled state */
-    pointer-events: none; 
-
-}
+    opacity: 0.5; /* Make it more visible than 0.8 */
+    pointer-events: none;
+    filter: grayscale(50%);
+  }
 
 .theme-switch {
     --toggle-size: 30px;
@@ -502,21 +511,168 @@ header{
   }
 
 
-  @media screen and (max-width: 600px) {
-    body {
-      flex-direction: column;
-      transform: scale(0.58);
-      transform-origin: 0 0; 
-    }
+  /* Mobile First - Base styles for mobile devices (320px and up) */
+  @media screen and (max-width: 768px) {
     .all {
       grid-template-columns: 1fr;
       grid-template-areas: 
       "header"
       "details"
       "game-Boxes";
+      height: auto;
+      min-height: 100vh;
     }
-    .details, .game-Boxes {
+    
+    header {
+      height: auto;
+      padding: 1rem;
+    }
+    
+    .theme-switch {
+      padding: 1rem;
+    }
+    
+    .details {
+      height: auto;
+      padding: 1rem;
+      left: 0;
+    }
+    
+    .details > h1 {
+      font-size: clamp(2rem, 8vw, 4rem);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .selections {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .choose-player, .choose-game-mode {
       width: 100%;
+      min-width: unset;
+      height: auto;
+      padding: 1.5rem 1rem;
+      margin-left: 0;
+      border-width: 2px;
+      border-radius: 1rem;
+    }
+    
+    .wrapper {
+      height: auto;
+      gap: 1rem;
+    }
+    
+    .wrapper .icon {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      margin: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .game-Boxes {
+      height: auto;
+      padding: 1rem;
+    }
+    
+    .big-Box {
+      padding: 1rem;
+      max-width: 90vw;
+      max-height: 90vw;
+      aspect-ratio: 1;
+    }
+    
+    .data-Box {
+      width: min(25vw, 100px);
+      height: min(25vw, 100px);
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      margin: 1px;
+    }
+    
+    .win-reset {
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    #winner {
+      width: 100%;
+      height: auto;
+      padding: 1rem;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      left: 0;
+      border-radius: 1rem;
+    }
+    
+    #reset {
+      width: 100%;
+      height: auto;
+      padding: 1rem;
+      margin: 0;
+      border-radius: 1rem;
+      font-size: 1rem;
+    }
+    
+    .theme-switch {
+      --toggle-size: 24px;
+    }
+  }
+  
+  /* Tablet styles (769px to 1024px) */
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    .all {
+      grid-template-columns: 1fr 1.2fr;
+    }
+    
+    .details > h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+    }
+    
+    .selections {
+      gap: 1rem;
+    }
+    
+    .choose-player, .choose-game-mode {
+      width: 45%;
+      height: auto;
+      padding: 2rem 1rem;
+      margin-left: 5%;
+    }
+    
+    .wrapper .icon {
+      width: 50px;
+      height: 50px;
+      min-width: 50px;
+      font-size: 1.3rem;
+    }
+    
+    .big-Box {
+      padding: 2rem;
+    }
+    
+    .data-Box {
+      width: min(18vh, 120px);
+      height: min(18vh, 120px);
+      font-size: 2.5rem;
+    }
+  }
+  
+  /* Desktop styles (1025px and up) */
+  @media screen and (min-width: 1025px) {
+    .all {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .details > h1 {
+      font-size: 10vh;
+    }
+    
+    .data-Box {
+      width: 20vh;
+      height: 20vh;
+      font-size: 3rem;
     }
   }
   
